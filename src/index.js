@@ -1,39 +1,41 @@
 import Phaser from 'phaser';
-import logoImg from '../assets/logo.png';
 
-class MyGame extends Phaser.Scene
-{
-    constructor ()
-    {
-        super();
-    }
+// 아래에 씬 가져오기
 
-    preload ()
-    {
-        this.load.image('logo', logoImg);
-    }
-      
-    create ()
-    {
-        const logo = this.add.image(400, 150, 'logo');
-      
-        this.tweens.add({
-            targets: logo,
-            y: 450,
-            duration: 2000,
-            ease: "Power2",
-            yoyo: true,
-            loop: -1
-        });
-    }
-}
 
-const config = {
-    type: Phaser.AUTO,
-    parent: 'phaser-example',
-    width: 800,
-    height: 600,
-    scene: MyGame
+//전체 환경 설정 -> SHARED_CONFIG에 객체로 담길 변수들
+const WIDTH = 600;
+const HEIGHT = 600;
+const ME_POSTION = {
+    x: WIDTH * 0.1,
+    y: HEIGHT / 2
 };
 
-const game = new Phaser.Game(config);
+const SHARED_CONFIG = {
+    width: WIDTH,
+    height: HEIGHT,
+    startPosition: ME_POSTION
+}
+
+//씬 정리 및 초기화
+//씬 구성 순서는 보통 Preload -> Menu -> 기타 씬 순
+const Scenes = [];  
+const createScene = Scene => new Scene(SHARED_CONFIG);
+const initScenes = () => Scenes.map(createScene);
+
+//최종 설정 객체구성
+const config = {
+    type: Phaser.AUTO,
+    ...SHARED_CONFIG,
+    pixelArt: true,
+    physics: {
+        default: 'arcade',
+        arcade: {
+            // debug: true,
+        }
+    },
+    scene: initScenes()
+}
+
+//게임 실행
+new Phaser.Game(config);
