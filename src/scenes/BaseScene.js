@@ -14,6 +14,8 @@ class BaseScene extends Phaser.Scene {
         
         this.fontSize = 34;
         this.lineHeight = 42;
+        this.titleText = `Bunny's Journey`;
+        this.titleOptions = {fontSize: `50px`, fill: '#fff'};
         this.fontOptions = {fontSize: `${this.fontSize}px`, fill: '#fff'};
 
     }
@@ -21,7 +23,12 @@ class BaseScene extends Phaser.Scene {
     create() {
         // 씬 배경화면
         // index.js 씬 배열에서 Preload씬이 먼저 초기화되면 해당 씬에서 로드한 에셋 키 이름으로 접근 가능
-        this.add.image(0, 0, 'background').setOrigin(0);
+        this.add.image(-400, -400, 'background').setOrigin(0);
+
+        // 기본 컴포넌트 호출부
+        this.createBunny();
+        this.createTitle();
+        this.createBackButton();
 
         // 1. 뒤로가기 버튼
         if(this.config.canGoBack) {
@@ -35,6 +42,43 @@ class BaseScene extends Phaser.Scene {
                 this.scene.start('MenuScene');
             })
         }
+    }
+
+    createBunny() {
+        this.bunny = this.physics.add.sprite(this.config.startPosition.x+100, this.config.startPosition.y-250, 'bunny')
+        .setScale(1.5)
+        .setOrigin(0);
+
+        // 위에 글자 제거 + 기울이기
+       this.bunny
+       .setCrop(0,15,200,135)
+       .setAngle(20);
+    }
+
+    createTitle() {
+        this.title = this.add.text(this.config.width-150, this.config.height-540,this.titleText,this.titleOptions).setOrigin(1,1);
+
+    }
+
+
+    createBackButton() {
+        this.backButton = this.physics.add.sprite(this.config.startPosition.x+480, this.config.startPosition.y+230, 'backButton')
+        .setScale(3)
+        .setOrigin(0);
+
+
+        // 💫(해결) 뒤로가기 버튼 애니메이션으로 고정 출력할 수 있으나 성능에 문제가 있을 듯 하다!
+        this.anims.create({
+            key:'backButton',
+            frames:this.anims.generateFrameNumbers('backButton',{
+                start:1,
+                 end: 23
+            }),
+            frameRate:4,
+            repeat:-1
+        })
+    
+        this.backButton.play('backButton');
     }
 
     //메뉴 중앙에 띄울 메뉴 텍스트들
@@ -55,6 +99,7 @@ class BaseScene extends Phaser.Scene {
             setupMenuEvents(menuItem);
         });
     }
+
 };
 
 export default BaseScene;
