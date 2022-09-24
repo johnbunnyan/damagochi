@@ -15,7 +15,7 @@ class BaseScene extends Phaser.Scene {
         this.fontSize = 34;
         this.lineHeight = 42;
         this.titleText = `Bunny's Journey`;
-        this.titleOptions = {fontSize: `50px`, fill: '#fff'};
+        this.titleOptions = {font: `50px Arial`, fill: '#ffffff'};
         this.fontOptions = {fontSize: `${this.fontSize}px`, fill: '#fff'};
 
     }
@@ -28,19 +28,10 @@ class BaseScene extends Phaser.Scene {
         // 기본 컴포넌트 호출부
         this.createBunny();
         this.createTitle();
-        this.createBackButton();
 
         // 1. 뒤로가기 버튼
         if(this.config.canGoBack) {
-            const backButton = this.add.sprite(this.config.width - 10, this.config.height-10, 'icons')
-            .setOrigin(1)
-            .setScale(2)
-            .setInteractive()
-
-        // 2. 버튼 눌렀을 때 이벤트 -> 뒤로가기 == 메뉴 씬으로 이동
-            backButton.on('pointerup', () => {
-                this.scene.start('MenuScene');
-            })
+            this.createBackButton();
         }
     }
 
@@ -53,18 +44,27 @@ class BaseScene extends Phaser.Scene {
        this.bunny
        .setCrop(0,15,200,135)
        .setAngle(20);
+
+       // 애니메이션 추가
+       
     }
 
     createTitle() {
-        this.title = this.add.text(this.config.width-150, this.config.height-540,this.titleText,this.titleOptions).setOrigin(1,1);
-
+       let MenuTitle =  this.title = this.add.text(this.config.width-150, this.config.height-540,this.titleText,this.titleOptions).setOrigin(1,1);
+       MenuTitle.setStyle({fill: '#fdd800'});
+    
     }
 
 
     createBackButton() {
         this.backButton = this.physics.add.sprite(this.config.startPosition.x+480, this.config.startPosition.y+230, 'backButton')
         .setScale(3)
-        .setOrigin(0);
+        .setOrigin(0)
+        .setInteractive();
+    // 2. 버튼 눌렀을 때 이벤트 -> 뒤로가기 == 메뉴 씬으로 이동
+        this.backButton.on('pointerup', () => {
+            this.scene.start('MenuScene');
+        });
 
 
         // 💫(해결) 뒤로가기 버튼 애니메이션으로 고정 출력할 수 있으나 성능에 문제가 있을 듯 하다!
