@@ -35,6 +35,12 @@ class BaseScene extends Phaser.Scene {
         }
     }
 
+        // 💡(깨달음) index,js에서 해당 씬을 읽으면 각 클래스의 update 메서드는 자동으로 실행된다?!
+        // 단 create()는 실제 자식 클래스가 호출해줘야 함
+    update() {
+        this.moveBunny();
+    }
+
     createBunny() {
         this.bunny = this.physics.add.sprite(this.config.startPosition.x+100, this.config.startPosition.y-250, 'bunny')
         .setScale(1.5)
@@ -98,6 +104,14 @@ class BaseScene extends Phaser.Scene {
             lastMenuPositionY += this.lineHeight;
             setupMenuEvents(menuItem);
         });
+    }
+
+
+    moveBunny(){
+        this.bunny.x += 2;
+        if(this.bunny.x > 600){
+            this.bunny.x = -150;
+        }
     }
 
 };
