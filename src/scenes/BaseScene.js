@@ -37,6 +37,7 @@ class BaseScene extends Phaser.Scene {
 
         // 💡(깨달음) index,js에서 해당 씬을 읽으면 각 클래스의 update 메서드는 자동으로 실행된다?!
         // 단 create()는 실제 자식 클래스가 호출해줘야 함
+        // update() 메서드는 각 씬마다 독립적이다. 따라서 자식이 create()했다고 해당 update()가 실행되는 것은 아니다.
     update() {
         this.moveBunny();
     }

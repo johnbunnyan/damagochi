@@ -4,6 +4,7 @@ import Phaser from 'phaser';
 import PreloadScene from './scenes/PreloadScene';
 import MenuScene from './scenes/MenuScene';
 import ScoreScene from './scenes/ScoreScene';
+import PlayScene from './scenes/PlayScene';
 
 //전체 환경 설정 -> SHARED_CONFIG에 객체로 담길 변수들
 const WIDTH = 600;
@@ -22,7 +23,7 @@ const SHARED_CONFIG = {
 //씬 정리 및 초기화
 //씬 구성 순서는 보통 Preload -> Menu -> 기타 씬 순
 //일단 Preload 씬 구성하고 그 다음 Base -> Menu 순으로 씬 구성하기!
-const Scenes = [PreloadScene,MenuScene, ScoreScene];  
+const Scenes = [PreloadScene,MenuScene, ScoreScene, PlayScene];  
 const createScene = Scene => new Scene(SHARED_CONFIG);
 const initScenes = () => Scenes.map(createScene);
 
