@@ -12,15 +12,15 @@ class PreloadScene extends Phaser.Scene {
 
     //에셋 불러오기
     preload() {
-        this.load.image('background', 'assets/background.png');
+        this.load.image('background', './assets/background.png');
         
-        this.load.image('bunny', 'assets/bunny.png');
+        this.load.image('bunny', './assets/bunny.png');
         
         // this.load.spritesheet('me', 'assets/me.png',{
         //     frameHeight: 16,
         //     frameHeight:16
         // });
-        this.load.spritesheet('backButton', 'assets/icons.png',{
+        this.load.spritesheet('backButton', './assets/icons.png',{
             frameWidth: 16,
             frameHeight:16,
             // 🔥(문제) 여기서 바로 스프라이트 프레임 지정하고 싶은데 안됨

@@ -2,6 +2,7 @@ const webpack = require("webpack");
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
+const CopyPlugin = require('copy-webpack-plugin');
 
 module.exports = {
   mode: "development",
@@ -24,6 +25,29 @@ module.exports = {
         use: "file-loader"
       }
     ]
+  },
+  entry: {
+    app: './src/index.js'
+  },
+  output: {
+    filename: '[name].js',
+    path: path.resolve(__dirname, 'build'),
+  },
+  optimization: {
+    splitChunks: {
+      cacheGroups: {
+        commons: {
+          test: /[\\/]node_modules[\\/]/,
+          name: 'vendor',
+          chunks: 'all'
+        }
+      }
+    }
+  },
+  devServer: {
+   contentBase: path.join(__dirname, '../'),
+    compress: true,
+    port: 8020,
   },
   plugins: [
     new CleanWebpackPlugin({
