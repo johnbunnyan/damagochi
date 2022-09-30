@@ -17,7 +17,7 @@ class BaseScene extends Phaser.Scene {
         this.titleText = `Bunny's Journey`;
         this.titleOptions = {font: `50px Arial`, fill: '#ffffff'};
         this.fontOptions = {fontSize: `${this.fontSize}px`, fill: '#fff'};
-
+        this.bunny = null;
     }
     
     create() {
@@ -26,13 +26,25 @@ class BaseScene extends Phaser.Scene {
         this.add.image(-400, -400, 'background').setOrigin(0);
 
         // 기본 컴포넌트 호출부
-        this.createBunny();
-        this.createTitle();
+        console.log(this.scene.key)
 
+        if(this.scene.key === 'MenuScene' || this.scene.key === 'ScoreScene'){
+            this.createBunny();
+        }else{
+            //🎧
+            //this.playBgm();
+        }
+        this.createTitle();
+        
         // 1. 뒤로가기 버튼
         if(this.config.canGoBack) {
             this.createBackButton();
         }
+
+
+    
+
+
     }
 
         // 💡(깨달음) index,js에서 해당 씬을 읽으면 각 클래스의 update 메서드는 자동으로 실행된다?!
@@ -43,6 +55,7 @@ class BaseScene extends Phaser.Scene {
     }
 
     createBunny() {
+
         this.bunny = this.physics.add.sprite(this.config.startPosition.x+100, this.config.startPosition.y-250, 'bunny')
         .setScale(1.5)
         .setOrigin(0);
@@ -113,6 +126,11 @@ class BaseScene extends Phaser.Scene {
         if(this.bunny.x > 600){
             this.bunny.x = -150;
         }
+    }
+
+    playBgm(){
+        this.music = this.sound.add('bgm');
+        this.music.play();
     }
 
 };

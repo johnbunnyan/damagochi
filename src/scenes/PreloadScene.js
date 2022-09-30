@@ -13,8 +13,16 @@ class PreloadScene extends Phaser.Scene {
     //에셋 불러오기
     preload() {
         this.load.image('background', './assets/background.png');
-        
-        this.load.image('bunny', './assets/bunny.png');
+        this.load.image('cloud', './assets/cloud.png');
+        this.load.spritesheet('bunny', './assets/bunny.png', {
+            frameWidth: 115,
+            frameHeight:143, 
+        });
+
+        this.load.spritesheet('bunnyFly', './assets/bunny.png', {
+            frameWidth: 115,
+            frameHeight:143, 
+        });
         
         // this.load.spritesheet('me', 'assets/me.png',{
         //     frameHeight: 16,
@@ -30,6 +38,7 @@ class PreloadScene extends Phaser.Scene {
             // spacing:-10
         });
 
+        this.load.audio('bgm', ['assets/bgm.mp3']);
     };
 
 

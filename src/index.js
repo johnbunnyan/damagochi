@@ -35,10 +35,10 @@ const config = {
     physics: {
         default: 'arcade',
         arcade: {
-            // debug: true,
+             debug: true,
         }
     },
-    scene: initScenes()
+    scene: initScenes(),
 }
 
 //게임 실행
